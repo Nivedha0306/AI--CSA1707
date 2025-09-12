@@ -1,0 +1,21 @@
+start = [[1, 2, 3],
+         [4, 0, 5],
+         [6, 7, 8]]
+
+goal = [[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 0]]
+
+print("Start state:")
+for row in start:
+    print(row)
+
+print("\nGoal state:")
+for row in goal:
+    print(row)
+i, j = 1, 1  
+start[i][j], start[i][j+1] = start[i][j+1], start[i][j]
+
+print("\nAfter moving blank right:")
+for row in start:
+    print(row)
