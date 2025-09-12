@@ -1,0 +1,58 @@
+from collections import deque
+def valid(m, c, side, total):
+    ml = m
+    cl = c
+    mr = total - m
+    cr = total - c
+    if ml < 0 or cl < 0 or mr < 0 or cr < 0:
+        return False
+    if ml > 0 and ml < cl:
+        return False
+    if mr > 0 and mr < cr:
+        return False
+
+    return True
+def bfs(total=3, boat=2):
+    Breadth-first search for the solution.
+    total: number of missionaries (and cannibals)
+    boat: boat capacity (max people per crossing)
+    Returns list of states (m_left, c_left, boat_side) from start to goal or No
+    start = (total, total, 0) 
+    goal  = (0, 0, 1)        
+    q = deque([(start, [start])])
+    seen = {start}
+    moves = []
+    for m in range(0, boat + 1):
+        for c in range(0, boat + 1 - m):
+            if m == 0 and c == 0:
+                continue
+            moves.append((m, c))
+
+    while q:
+        (m, c, side), path = q.popleft()
+
+        if (m, c, side) == goal:
+            return path
+
+        if side == 0:  # boat is on left -> move people from left to right (subtract)
+            for dm, dc in moves:
+                new = (m - dm, c - dc, 1)
+                if valid(new[0], new[1], new[2], total) and new not in seen:
+                    seen.add(new)
+                    q.append((new, path + [new]))
+        else:          # boat on right -> move people from right to left (add)
+            for dm, dc in moves:
+                new = (m + dm, c + dc, 0)
+                if valid(new[0], new[1], new[2], total) and new not in seen:
+                    seen.add(new)
+                    q.append((new, path + [new]))
+
+    return None 
+if _name_ == "_main_":
+    solution = bfs(total=3, boat=2)
+    if solution:
+        print("Solution path:")
+        for step in solution:
+            print(step)
+    else:
+        print("No solution found")
