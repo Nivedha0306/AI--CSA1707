@@ -1,0 +1,14 @@
+rooms = {'A': 'Dirty', 'B': 'Dirty'}
+location = 'A'
+
+for _ in range(2):
+    if rooms[location] == 'Dirty':
+        print(f"Vacuum at {location}: CLEANING")
+        rooms[location] = 'Clean'
+    else:
+        print(f"Vacuum at {location}: already clean")
+    
+    # Move to the other room
+    location = 'B' if location == 'A' else 'A'
+
+print("Final State: ", rooms)
