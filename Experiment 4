@@ -1,0 +1,17 @@
+from itertools import permutations
+def solve(puzzle):
+    L = puzzle.replace(" ", "").split("=")
+    left = L[0].split("+"); right = L[1]
+    words = left + [right]
+    letters = sorted(set("".join(words)))
+    if len(letters) > 10:
+        print("Too many letters"); return
+    for perm in permutations("0123456789", len(letters)):
+        m = dict(zip(letters, perm))
+        if any(m[w[0]] == "0" for w in words): continue
+        vals = [int("".join(m[c] for c in w)) for w in words]
+        if sum(vals[:-1]) == vals[-1]:
+            print(puzzle, "=>", " + ".join(map(str, vals[:-1])), "=", vals[-1])
+            return
+    print("No solution")
+solve("SEND + MORE = MONEY")
