@@ -1,0 +1,21 @@
+N = 8
+board = [-1] * N
+col = 0
+stack = [(board.copy(), col)]
+
+while stack:
+    board, col = stack.pop()
+    if col == N:
+        print(board)
+        continue
+    for row in range(N-1, -1, -1):
+        safe = True
+        for c in range(col):
+            r = board[c]
+            if r == row or abs(r - row) == abs(c - col):
+                safe = False
+                break
+        if safe:
+            new_board = board.copy()
+            new_board[col] = row
+            stack.append((new_board, col + 1))
