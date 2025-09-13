@@ -1,0 +1,12 @@
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier, export_tex
+iris = load_iris()
+X, y = iris.data, iris.target
+model = DecisionTreeClassifier()
+model.fit(X, y)
+tree_rules = export_text(model, feature_names=iris.feature_names)
+print("Decision Tree Rules:\n")
+print(tree_rules)
+sample = [[5.1, 3.5, 1.4, 0.2]]
+predicted_class = model.predict(sample)
+print("\nPredicted class for sample:", iris.target_names[predicted_class][0])
