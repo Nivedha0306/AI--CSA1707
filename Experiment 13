@@ -1,0 +1,10 @@
+def minimax(d, i, isMax, scores, h):
+    if d == h: return scores[i]
+    if isMax:
+        return max(minimax(d+1, i*2, 0, scores, h),
+                   minimax(d+1, i*2+1, 0, scores, h))
+    return min(minimax(d+1, i*2, 1, scores, h),
+               minimax(d+1, i*2+1, 1, scores, h))
+
+scores = [3, 5, 6, 9, 1, 2, 0, -1]
+print("Optimal value:", minimax(0, 0, 1, scores, 3))
