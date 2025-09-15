@@ -1,0 +1,10 @@
+% Knowledge Base: name and date of birth
+% Format: dob(Name, Day, Month, Year).
+dob(ram, 15, may, 2000).
+dob(sita, 10, june, 1999).
+dob(arun, 25, december, 2001).
+dob(nivedha, 5, january, 2002).
+% Rule to show date of birth
+show_dob(Name) :-
+    dob(Name, Day, Month, Year),
+    format('~w was born on ~w ~w ~w.~n', [Name, Day, Month, Year]).
