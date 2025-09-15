@@ -1,0 +1,27 @@
+% Knowledge Base
+% student(Name, SubjectCode).
+% teacher(Name, SubjectCode).
+% subject(SubjectCode, SubjectName).
+
+student(ram, cs101).
+student(sita, cs101).
+student(arun, cs102).
+student(meena, cs103).
+
+teacher(kumar, cs101).
+teacher(latha, cs102).
+teacher(raja, cs103).
+
+subject(cs101, 'Artificial Intelligence').
+subject(cs102, 'Data Structures').
+subject(cs103, 'Computer Networks').
+
+% Rule: find which teacher teaches a student
+teaches(Teacher, Student) :-
+    student(Student, Code),
+    teacher(Teacher, Code).
+
+% Rule: find subject of a student
+student_subject(Student, SubjectName) :-
+    student(Student, Code),
+    subject(Code, SubjectName).
