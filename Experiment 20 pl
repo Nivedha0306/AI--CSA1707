@@ -1,0 +1,26 @@
+% Facts: planet(Name, Order, DistanceFromSun, Diameter, Moons).
+% DistanceFromSun in million km, Diameter in km.
+
+planet(mercury, 1, 58, 4879, 0).
+planet(venus,   2, 108, 12104, 0).
+planet(earth,   3, 150, 12742, 1).
+planet(mars,    4, 228, 6779, 2).
+planet(jupiter, 5, 778, 139820, 79).
+planet(saturn,  6, 1430, 116460, 83).
+planet(uranus,  7, 2870, 50724, 27).
+planet(neptune, 8, 4500, 49244, 14).
+
+% Rule: check if a planet has moons
+has_moons(Name) :-
+    planet(Name, _, _, _, Moons),
+    Moons > 0.
+
+% Rule: inner planet (closer than 300 million km)
+inner_planet(Name) :-
+    planet(Name, _, Distance, _, _),
+    Distance < 300.
+
+% Rule: outer planet (farther than 300 million km)
+outer_planet(Name) :-
+    planet(Name, _, Distance, _, _),
+    Distance >= 300.
