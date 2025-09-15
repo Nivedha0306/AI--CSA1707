@@ -1,0 +1,63 @@
+% --- Facts ---
+male(john).
+male(peter).
+male(david).
+male(raj).
+male(ali).
+
+female(mary).
+female(linda).
+female(sara).
+female(anu).
+female(fatima).
+
+parent(john, peter).
+parent(mary, peter).
+parent(john, linda).
+parent(mary, linda).
+parent(peter, sara).
+parent(anu, sara).
+parent(linda, raj).
+parent(david, raj).
+parent(linda, fatima).
+parent(david, fatima).
+parent(raj, ali).
+
+% --- Rules ---
+
+father(F, C) :-
+    male(F),
+    parent(F, C).
+
+mother(M, C) :-
+    female(M),
+    parent(M, C).
+
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
+
+grandparent(G, C) :-
+    parent(G, P),
+    parent(P, C).
+
+grandfather(GF, C) :-
+    male(GF),
+    grandparent(GF, C).
+
+grandmother(GM, C) :-
+    female(GM),
+    grandparent(GM, C).
+
+% Find uncle
+uncle(U, N) :-
+    male(U),
+    sibling(U, P),
+    parent(P, N).
+
+% Find aunt
+aunt(A, N) :-
+    female(A),
+    sibling(A, P),
+    parent(P, N).
