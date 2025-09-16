@@ -1,0 +1,19 @@
+% Disease and symptoms
+disease(flu, [fever, cough, headache]).
+disease(cold, [cough, sneezing]).
+disease(malaria, [fever, chills, headache]).
+disease(dengue, [fever, headache, joint_pain]).
+
+% Check if patient has disease
+diagnose(Symptoms) :-
+    disease(Disease, DiseaseSymptoms),
+    subset(Symptoms, DiseaseSymptoms),
+    write('Patient may have: '), write(Disease), nl,
+    fail.
+diagnose(_).
+
+% Subset check
+subset([], _).
+subset([H|T], List) :-
+    member(H, List),
+    subset(T, List).
