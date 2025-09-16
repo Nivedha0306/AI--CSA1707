@@ -1,0 +1,25 @@
+% Define what characters are vowels
+is_vowel(a).
+is_vowel(e).
+is_vowel(i).
+is_vowel(o).
+is_vowel(u).
+is_vowel(A) :-
+    char_code(A, Code),
+    Code >= 65, Code =< 90,     % Uppercase letter
+    char_code(Lower, Code + 32), % Convert to lowercase
+    is_vowel(Lower).
+
+% Base case: empty list has 0 vowels
+count_vowels([], 0).
+
+% If head is a vowel, increment count
+count_vowels([H|T], Count) :-
+    is_vowel(H),
+    count_vowels(T, RestCount),
+    Count is RestCount + 1.
+
+% If head is not a vowel, skip it
+count_vowels([H|T], Count) :-
+    \+ is_vowel(H),
+    count_vowels(T, Count).
