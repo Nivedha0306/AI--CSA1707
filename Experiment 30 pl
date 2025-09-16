@@ -1,0 +1,24 @@
+% Facts: symptoms
+symptom(john, fever).
+symptom(john, cough).
+symptom(john, headache).
+symptom(mary, cough).
+symptom(mary, sneezing).
+symptom(bob, fever).
+symptom(bob, chills).
+symptom(bob, headache).
+
+% Rules: disease diagnosis
+disease(Person, flu) :-
+    symptom(Person, fever),
+    symptom(Person, cough),
+    symptom(Person, headache).
+
+disease(Person, cold) :-
+    symptom(Person, cough),
+    symptom(Person, sneezing).
+
+disease(Person, malaria) :-
+    symptom(Person, fever),
+    symptom(Person, chills),
+    symptom(Person, headache).
