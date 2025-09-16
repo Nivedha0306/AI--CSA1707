@@ -1,0 +1,35 @@
+% Edges with heuristic cost
+edge(a, b, 1).
+edge(a, c, 3).
+edge(b, d, 1).
+edge(b, e, 5).
+edge(c, f, 2).
+edge(d, goal, 0).
+edge(e, goal, 0).
+edge(f, goal, 0).
+
+% Best-First Search
+best_first_search(Start, Goal, Path) :-
+    best_first([[Start]], Goal, Path).
+
+best_first([[Goal|Rest]|_], Goal, Path) :-
+    reverse([Goal|Rest], Path).  % Goal found
+
+best_first([CurrentPath|OtherPaths], Goal, Path) :-
+    CurrentPath = [CurrentNode|_],
+    findall([NextNode|CurrentPath],
+            (edge(CurrentNode, NextNode, _), \+ member(NextNode, CurrentPath)),
+            NewPaths),
+    append(OtherPaths, NewPaths, UpdatedPaths),
+    sort_paths(UpdatedPaths, SortedPaths),
+    best_first(SortedPaths, Goal, Path).
+
+% Sort paths by heuristic cost
+sort_paths(Paths, Sorted) :-
+    map_list_to_pairs(path_cost, Paths, Pairs),
+    keysort(Pairs, SortedPairs),
+    pairs_values(SortedPairs, Sorted).
+
+path_cost([Node|_], Cost) :-
+    edge(Node, _, Cost), !.
+path_cost([_], 0).
