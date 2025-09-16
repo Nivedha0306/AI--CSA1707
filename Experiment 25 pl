@@ -1,0 +1,43 @@
+% Monkey and Banana Problem in Prolog
+
+% Initial facts
+location(monkey, room1).
+location(banana, room2).
+location(box, room1).
+height(monkey, low).
+height(box, low).
+
+% Possible moves
+move(go(Room)) :-
+    location(monkey, Room), !, fail.
+move(go(Room)) :-
+    retract(location(monkey, _)),
+    assert(location(monkey, Room)),
+    write('Monkey goes to '), write(Room), nl.
+
+move(push_box(Room)) :-
+    location(monkey, Room),
+    location(box, Room),
+    retract(location(box, _)),
+    assert(location(box, Room)),
+    write('Monkey pushes box to '), write(Room), nl.
+
+move(climb) :-
+    location(monkey, Loc),
+    location(box, Loc),
+    retract(height(monkey, low)),
+    assert(height(monkey, high)),
+    write('Monkey climbs on the box'), nl.
+
+move(grab) :-
+    location(monkey, Loc),
+    location(banana, Loc),
+    height(monkey, high),
+    write('Monkey grabs the banana!'), nl.
+
+% Solve sequence
+solve :-
+    move(go(room2)),
+    move(push_box(room2)),
+    move(climb),
+    move(grab).
