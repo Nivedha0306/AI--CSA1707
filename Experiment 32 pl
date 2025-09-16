@@ -1,0 +1,33 @@
+% Base Case: atoms or numbers that match
+pattern_match(X, X) :- atomic(X).
+
+% Pattern Variable: allow matching anything
+pattern_match(Pattern, Value) :-
+    var(Pattern), !,
+    Pattern = Value.
+
+% Compound terms: check functor and arguments
+pattern_match(Pattern, Value) :-
+    compound(Pattern),
+    compound(Value),
+    functor(Pattern, F, N),
+    functor(Value, F, N),
+    match_args(N, Pattern, Value).
+
+% Matching list structure
+pattern_match([HeadP|TailP], [HeadV|TailV]) :-
+    pattern_match(HeadP, HeadV),
+    pattern_match(TailP, TailV).
+
+% Matching empty list
+pattern_match([], []).
+
+% Helper predicate: match all arguments of compound terms
+match_args(0, _, _) :- !.
+match_args(N, P, V) :-
+    N > 0,
+    arg(N, P, ArgP),
+    arg(N, V, ArgV),
+    pattern_match(ArgP, ArgV),
+    N1 is N - 1,
+    match_args(N1, P, V). output
