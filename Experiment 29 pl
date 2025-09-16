@@ -1,0 +1,19 @@
+% Facts: symptoms
+symptom(john, fever).
+symptom(john, cough).
+symptom(john, headache).
+
+% Rules: disease diagnosis
+disease(X, flu) :-
+    symptom(X, fever), 
+    symptom(X, cough),
+    symptom(X, headache).
+
+disease(X, cold) :-
+    symptom(X, cough),
+    symptom(X, sneezing).
+
+disease(X, malaria) :-
+    symptom(X, fever),
+    symptom(X, chills),
+    symptom(X, headache).
