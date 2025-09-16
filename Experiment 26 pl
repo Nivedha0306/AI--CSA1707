@@ -1,0 +1,12 @@
+% Facts: fruits and their colors
+fruit_color(apple, red).
+fruit_color(banana, yellow).
+fruit_color(grape, purple).
+fruit_color(orange, orange).
+fruit_color(mango, yellow).
+fruit_color(kiwi, green).
+
+% Query rule
+find_fruit_color(Fruit, Color) :-
+    fruit_color(Fruit, Color),
+    write(Fruit), write(' is '), write(Color), nl.
