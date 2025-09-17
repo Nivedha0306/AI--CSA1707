@@ -1,0 +1,8 @@
+% Very simple Prolog blog page generator
+blog :-
+    open('blog.html', write, F),
+    write(F, '<html><head><title>My Blog</title></head><body>'),
+    write(F, '<h1>Hello from Prolog Blog</h1>'),
+    write(F, '<p><a href="post.html" title="Go to first post">Read First Post</a></p>'),
+    write(F, '</body></html>'),
+    close(F).
